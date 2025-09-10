@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { DollarSign, Download, Eye, Calendar, Edit, Check, X, Search } from "lucide-react"
+import * as XLSX from 'xlsx'
 
 interface PayrollEmployee {
   id: number
@@ -119,13 +120,87 @@ export function PayrollProcessing() {
     }
   }
 
+  const exportToExcel = () => {
+    // Prepare data for Excel export
+    const exportData = filteredPayrollData.map((employee) => ({
+      'Employee ID': employee.employeeId,
+      'Employee Name': employee.employeeName,
+      'Base Salary': employee.baseSalary,
+      'Overtime Pay': employee.overtime,
+      'Overtime Hours': employee.overtimeHours,
+      'Bonuses': employee.bonuses,
+      'Deductions': employee.deductions,
+      'Net Pay': employee.netPay,
+      'Hours Worked': employee.hoursWorked,
+      'Status': employee.status,
+      'Pay Date': employee.payDate,
+    }))
+
+    // Create workbook and worksheet
+    const workbook = XLSX.utils.book_new()
+    const worksheet = XLSX.utils.json_to_sheet(exportData)
+
+    // Set column widths
+    const columnWidths = [
+      { wch: 12 }, // Employee ID
+      { wch: 20 }, // Employee Name
+      { wch: 15 }, // Base Salary
+      { wch: 15 }, // Overtime Pay
+      { wch: 15 }, // Overtime Hours
+      { wch: 12 }, // Bonuses
+      { wch: 12 }, // Deductions
+      { wch: 15 }, // Net Pay
+      { wch: 15 }, // Hours Worked
+      { wch: 12 }, // Status
+      { wch: 12 }, // Pay Date
+    ]
+    worksheet['!cols'] = columnWidths
+
+    // Add summary row at the top
+    const summaryData = [
+      {
+        'Employee ID': 'SUMMARY',
+        'Employee Name': `Total Employees: ${filteredPayrollData.length}`,
+        'Base Salary': '',
+        'Overtime Pay': '',
+        'Overtime Hours': '',
+        'Bonuses': '',
+        'Deductions': '',
+        'Net Pay': `Total: $${totalPayroll.toLocaleString()}`,
+        'Hours Worked': '',
+        'Status': `Pay Period: ${selectedMonth}`,
+        'Pay Date': new Date().toLocaleDateString(),
+      },
+      {}, // Empty row for spacing
+    ]
+
+    // Insert summary at the beginning
+    XLSX.utils.sheet_add_json(worksheet, summaryData, { origin: 'A1' })
+    XLSX.utils.sheet_add_json(worksheet, exportData, { origin: 'A4' })
+
+    // Add the worksheet to workbook
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Payroll Report')
+
+    // Generate filename with current date and pay period
+    const currentDate = new Date().toISOString().split('T')[0]
+    const filename = `Payroll_Report_${selectedMonth}_${currentDate}.xlsx`
+
+    // Save the file
+    XLSX.writeFile(workbook, filename)
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-white">Payroll Processing</h1>
         <div className="flex items-center space-x-4">
-          <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
+          <button 
+            type="button"
+            onClick={exportToExcel}
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+            title="Export payroll data to Excel"
+          >
             <Download size={20} />
             <span>Export Payroll</span>
           </button>

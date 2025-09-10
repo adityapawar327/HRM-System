@@ -33,11 +33,13 @@ This is a comprehensive HR Management System built with Next.js 15, React 19, an
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm, yarn, or pnpm
 - Backend API server (to be developed)
 
 ### Installation
+
 ```bash
 # Clone the repository
 git clone <repository-url>
@@ -63,6 +65,7 @@ The application will be available at `http://localhost:3000`
 ## 📊 Current Features & Mock Data
 
 ### Implemented Modules
+
 1. **Dashboard** - Overview statistics and charts
 2. **Employee Management** - CRUD operations for employees
 3. **Payroll Processing** - Salary calculations and payments
@@ -72,50 +75,54 @@ The application will be available at `http://localhost:3000`
 7. **Document Management** - File uploads and document storage
 
 ### Mock Data Structure
+
 All components currently use mock data. Here are the key data structures:
 
 #### Employee Data
+
 ```typescript
 interface Employee {
-  id: string
-  name: string
-  email: string
-  phone: string
-  department: string
-  position: string
-  salary: number
-  startDate: string
-  status: 'active' | 'inactive'
-  profilePhoto?: string
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  department: string;
+  position: string;
+  salary: number;
+  startDate: string;
+  status: "active" | "inactive";
+  profilePhoto?: string;
 }
 ```
 
 #### Payroll Data
+
 ```typescript
 interface PayrollRecord {
-  id: string
-  employeeId: string
-  employeeName: string
-  baseSalary: number
-  overtime: number
-  deductions: number
-  netPay: number
-  payPeriod: string
-  status: 'pending' | 'processed' | 'paid'
+  id: string;
+  employeeId: string;
+  employeeName: string;
+  baseSalary: number;
+  overtime: number;
+  deductions: number;
+  netPay: number;
+  payPeriod: string;
+  status: "pending" | "processed" | "paid";
 }
 ```
 
 #### Attendance Data
+
 ```typescript
 interface AttendanceRecord {
-  id: string
-  employeeId: string
-  employeeName: string
-  date: string
-  checkIn: string
-  checkOut: string
-  hoursWorked: number
-  status: 'present' | 'absent' | 'late' | 'half-day'
+  id: string;
+  employeeId: string;
+  employeeName: string;
+  date: string;
+  checkIn: string;
+  checkOut: string;
+  hoursWorked: number;
+  status: "present" | "absent" | "late" | "half-day";
 }
 ```
 
@@ -124,6 +131,7 @@ interface AttendanceRecord {
 ### 1. API Endpoints Needed
 
 #### Employee Management
+
 ```
 GET    /api/employees              # Get all employees
 POST   /api/employees              # Create new employee
@@ -134,6 +142,7 @@ POST   /api/employees/:id/photo    # Upload profile photo
 ```
 
 #### Payroll Management
+
 ```
 GET    /api/payroll               # Get payroll records
 POST   /api/payroll               # Create payroll record
@@ -143,6 +152,7 @@ GET    /api/payroll/reports       # Generate payroll reports
 ```
 
 #### Attendance Management
+
 ```
 GET    /api/attendance            # Get attendance records
 POST   /api/attendance            # Record attendance
@@ -152,6 +162,7 @@ POST   /api/attendance/bulk       # Bulk attendance import
 ```
 
 #### Recruitment Management
+
 ```
 GET    /api/jobs                  # Get job postings
 POST   /api/jobs                  # Create job posting
@@ -162,6 +173,7 @@ PUT    /api/applications/:id      # Update application status
 ```
 
 #### Performance Management
+
 ```
 GET    /api/performance           # Get performance records
 POST   /api/performance           # Create performance review
@@ -170,6 +182,7 @@ GET    /api/performance/employee/:id # Get employee performance
 ```
 
 #### Document Management
+
 ```
 GET    /api/documents             # Get documents
 POST   /api/documents             # Upload document
@@ -178,6 +191,7 @@ GET    /api/documents/:id/download # Download document
 ```
 
 #### Notifications
+
 ```
 GET    /api/notifications         # Get user notifications
 POST   /api/notifications         # Create notification
@@ -191,24 +205,24 @@ The main data management is handled in `hooks/use-hr-data.tsx`. Replace mock dat
 
 ```typescript
 // Current mock implementation
-const [employees, setEmployees] = useState(mockEmployees)
+const [employees, setEmployees] = useState(mockEmployees);
 
 // Replace with API integration
-const [employees, setEmployees] = useState([])
+const [employees, setEmployees] = useState([]);
 
 useEffect(() => {
-  fetchEmployees()
-}, [])
+  fetchEmployees();
+}, []);
 
 const fetchEmployees = async () => {
   try {
-    const response = await fetch('/api/employees')
-    const data = await response.json()
-    setEmployees(data)
+    const response = await fetch("/api/employees");
+    const data = await response.json();
+    setEmployees(data);
   } catch (error) {
-    console.error('Error fetching employees:', error)
+    console.error("Error fetching employees:", error);
   }
-}
+};
 ```
 
 ### 3. Authentication Integration
@@ -217,23 +231,23 @@ Add authentication middleware and protect routes:
 
 ```typescript
 // middleware.ts
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   // Add authentication logic
-  const token = request.cookies.get('auth-token')
-  
+  const token = request.cookies.get("auth-token");
+
   if (!token) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    return NextResponse.redirect(new URL("/login", request.url));
   }
-  
-  return NextResponse.next()
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/api/:path*']
-}
+  matcher: ["/dashboard/:path*", "/api/:path*"],
+};
 ```
 
 ## 🗄️ Database Schema Recommendations
@@ -241,6 +255,7 @@ export const config = {
 ### Core Tables
 
 #### employees
+
 ```sql
 CREATE TABLE employees (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -259,6 +274,7 @@ CREATE TABLE employees (
 ```
 
 #### payroll_records
+
 ```sql
 CREATE TABLE payroll_records (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -275,6 +291,7 @@ CREATE TABLE payroll_records (
 ```
 
 #### attendance_records
+
 ```sql
 CREATE TABLE attendance_records (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -318,6 +335,7 @@ JWT_SECRET="your-jwt-secret"
 ## 📝 API Response Formats
 
 ### Success Response
+
 ```json
 {
   "success": true,
@@ -329,6 +347,7 @@ JWT_SECRET="your-jwt-secret"
 ```
 
 ### Error Response
+
 ```json
 {
   "success": false,
@@ -344,6 +363,7 @@ JWT_SECRET="your-jwt-secret"
 ```
 
 ### Pagination Response
+
 ```json
 {
   "success": true,
@@ -400,6 +420,7 @@ Dashboard requires these analytics endpoints:
 ## 🚦 Testing
 
 ### API Testing
+
 ```bash
 # Install testing dependencies
 npm install --save-dev jest @testing-library/react @testing-library/jest-dom
@@ -409,28 +430,29 @@ npm test
 ```
 
 ### Example API Test
+
 ```typescript
 // __tests__/api/employees.test.ts
-import { createMocks } from 'node-mocks-http'
-import handler from '../../pages/api/employees'
+import { createMocks } from "node-mocks-http";
+import handler from "../../pages/api/employees";
 
-describe('/api/employees', () => {
-  it('should return employees list', async () => {
+describe("/api/employees", () => {
+  it("should return employees list", async () => {
     const { req, res } = createMocks({
-      method: 'GET',
-    })
+      method: "GET",
+    });
 
-    await handler(req, res)
+    await handler(req, res);
 
-    expect(res._getStatusCode()).toBe(200)
+    expect(res._getStatusCode()).toBe(200);
     expect(JSON.parse(res._getData())).toEqual(
       expect.objectContaining({
         success: true,
-        data: expect.any(Array)
+        data: expect.any(Array),
       })
-    )
-  })
-})
+    );
+  });
+});
 ```
 
 ## 🔒 Security Considerations
@@ -450,12 +472,14 @@ The frontend is fully responsive. Ensure API responses work well with mobile int
 ## 🚀 Deployment
 
 ### Production Build
+
 ```bash
 npm run build
 npm start
 ```
 
 ### Environment Setup
+
 - Set up production database
 - Configure environment variables
 - Set up file storage (AWS S3, etc.)
@@ -465,6 +489,7 @@ npm start
 ## 📞 Support & Contact
 
 For backend integration questions:
+
 - Create issues in the repository
 - Contact the frontend team for clarification
 - Review component implementations for data requirements
