@@ -224,11 +224,6 @@ export function Header({ globalSearchTerm, setGlobalSearchTerm, setSearchResults
           {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
         </button>
 
-        {/* US Flag */}
-        <div className="w-6 h-4 bg-red-500 rounded-sm flex items-center justify-center">
-          <span className="text-xs text-white">🇺🇸</span>
-        </div>
-
         <UserProfile />
       </div>
     </header>

@@ -166,7 +166,7 @@ export function PayrollProcessing() {
         'Overtime Hours': '',
         'Bonuses': '',
         'Deductions': '',
-        'Net Pay': `Total: $${totalPayroll.toLocaleString()}`,
+        'Net Pay': `Total: ₹${totalPayroll.toLocaleString()}`,
         'Hours Worked': '',
         'Status': `Pay Period: ${selectedMonth}`,
         'Pay Date': new Date().toLocaleDateString(),
@@ -221,7 +221,7 @@ export function PayrollProcessing() {
             <h3 className="text-gray-400 text-sm">Total Payroll</h3>
             <DollarSign className="text-green-500" size={20} />
           </div>
-          <p className="text-2xl font-bold text-white">${totalPayroll.toLocaleString()}</p>
+          <p className="text-2xl font-bold text-white">₹{totalPayroll.toLocaleString()}</p>
         </div>
 
         <div className="bg-[#1a1b23] rounded-lg p-6 border border-gray-800">
@@ -250,7 +250,7 @@ export function PayrollProcessing() {
             <DollarSign className="text-purple-500" size={20} />
           </div>
           <p className="text-2xl font-bold text-white">
-            ${Math.round(totalPayroll / payrollData.length).toLocaleString()}
+            ₹{Math.round(totalPayroll / payrollData.length).toLocaleString()}
           </p>
         </div>
       </div>
@@ -322,11 +322,11 @@ export function PayrollProcessing() {
                       <div className="text-gray-400 text-sm">{employee.employeeId}</div>
                     </div>
                   </td>
-                  <td className="p-4 text-gray-300">${employee.baseSalary.toLocaleString()}</td>
-                  <td className="p-4 text-gray-300">${employee.overtime.toLocaleString()}</td>
-                  <td className="p-4 text-gray-300">${employee.bonuses.toLocaleString()}</td>
-                  <td className="p-4 text-gray-300">${employee.deductions.toLocaleString()}</td>
-                  <td className="p-4 text-white font-semibold">${employee.netPay.toLocaleString()}</td>
+                  <td className="p-4 text-gray-300">₹{employee.baseSalary.toLocaleString()}</td>
+                  <td className="p-4 text-gray-300">₹{employee.overtime.toLocaleString()}</td>
+                  <td className="p-4 text-gray-300">₹{employee.bonuses.toLocaleString()}</td>
+                  <td className="p-4 text-gray-300">₹{employee.deductions.toLocaleString()}</td>
+                  <td className="p-4 text-white font-semibold">₹{employee.netPay.toLocaleString()}</td>
                   <td className="p-4">
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${employee.status === "Processed"
@@ -412,15 +412,15 @@ export function PayrollProcessing() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-gray-400">Base Salary</span>
-                    <span className="text-white">${selectedEmployee.baseSalary.toLocaleString()}</span>
+                    <span className="text-white">₹{selectedEmployee.baseSalary.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Overtime ({selectedEmployee.overtimeHours} hrs)</span>
-                    <span className="text-white">${selectedEmployee.overtime.toLocaleString()}</span>
+                    <span className="text-white">₹{selectedEmployee.overtime.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Bonuses</span>
-                    <span className="text-white">${selectedEmployee.bonuses.toLocaleString()}</span>
+                    <span className="text-white">₹{selectedEmployee.bonuses.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
@@ -429,14 +429,14 @@ export function PayrollProcessing() {
                 <h3 className="text-white font-semibold mb-3">Deductions</h3>
                 <div className="flex justify-between">
                   <span className="text-gray-400">Total Deductions</span>
-                  <span className="text-white">${selectedEmployee.deductions.toLocaleString()}</span>
+                  <span className="text-white">₹{selectedEmployee.deductions.toLocaleString()}</span>
                 </div>
               </div>
 
               <div className="border-t border-gray-700 pt-4">
                 <div className="flex justify-between text-lg font-bold">
                   <span className="text-white">Net Pay</span>
-                  <span className="text-green-400">${selectedEmployee.netPay.toLocaleString()}</span>
+                  <span className="text-green-400">₹{selectedEmployee.netPay.toLocaleString()}</span>
                 </div>
               </div>
             </div>

@@ -16,7 +16,7 @@ export function UserProfile() {
   const [profileData, setProfileData] = useState({
     name: "John Doe",
     email: "john.doe@company.com",
-    phone: "+1 (555) 123-4567",
+    phone: "+91 98765 43210",
     department: "Engineering",
     position: "Senior Developer",
     bio: "Experienced software developer with 8+ years in full-stack development.",

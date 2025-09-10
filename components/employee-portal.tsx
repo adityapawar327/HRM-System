@@ -20,7 +20,7 @@ export function EmployeePortal() {
     manager: "Sarah Johnson",
     joinDate: "2022-01-15",
     email: "john.doe@company.com",
-    phone: "+1 (555) 123-4567",
+    phone: "+91 98765 43210",
     avatar: "/placeholder.svg?height=80&width=80"
   }
 

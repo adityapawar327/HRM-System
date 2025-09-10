@@ -59,13 +59,13 @@ export function ReportsSystem() {
   }
 
   const payrollReportData = {
-    totalPayroll: "$892,500",
-    averageSalary: "$73,125",
+    totalPayroll: "₹6,73,87,500",
+    averageSalary: "₹5,61,562",
     salaryRanges: [
-      { range: "$40K-60K", count: 28, percentage: 23 },
-      { range: "$60K-80K", count: 45, percentage: 37 },
-      { range: "$80K-100K", count: 32, percentage: 26 },
-      { range: "$100K+", count: 17, percentage: 14 }
+      { range: "₹3L-5L", count: 28, percentage: 23 },
+      { range: "₹5L-7L", count: 45, percentage: 37 },
+      { range: "₹7L-10L", count: 32, percentage: 26 },
+      { range: "₹10L+", count: 17, percentage: 14 }
     ],
     benefits: {
       healthInsurance: 118,

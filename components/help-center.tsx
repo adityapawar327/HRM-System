@@ -161,8 +161,8 @@ export function HelpCenter() {
                     <h4 className="font-semibold">Phone Support</h4>
                   </div>
                   <p className="text-gray-400 mb-2">Call us during business hours</p>
-                  <p className="text-white font-mono">+1 (555) 123-HELP</p>
-                  <p className="text-sm text-gray-500">Mon-Fri 9AM-6PM EST</p>
+                  <p className="text-white font-mono">+91 1800-123-HELP</p>
+                  <p className="text-sm text-gray-500">Mon-Fri 9AM-6PM IST</p>
                 </div>
 
                 <div className="bg-[#0f1015] p-6 rounded-lg border border-gray-700">
